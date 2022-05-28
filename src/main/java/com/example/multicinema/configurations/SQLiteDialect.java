@@ -36,7 +36,7 @@ public class SQLiteDialect extends Dialect {
         registerColumnType(Types.NUMERIC, "numeric($p, $s)");
         registerColumnType(Types.DECIMAL, "decimal");
         registerColumnType(Types.CHAR, "char");
-        registerColumnType(Types.VARCHAR, "varchar($l)");
+        registerColumnType(Types.VARCHAR, "varchar");
         registerColumnType(Types.LONGVARCHAR, "longvarchar");
         registerColumnType(Types.DATE, "date");
         registerColumnType(Types.TIME, "time");
