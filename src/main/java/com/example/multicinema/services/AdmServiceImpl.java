@@ -29,4 +29,11 @@ public class AdmServiceImpl implements AdmService{
         admRep.deleteById(id);
     }
 
+    @Override
+    public void updateAdm(int id, Administrator ad) {
+        admRep.deleteById(id);
+        ad.setIdA(id);
+        admRep.save(ad);
+    }
+
 }

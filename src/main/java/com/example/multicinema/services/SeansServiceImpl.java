@@ -29,4 +29,11 @@ public class SeansServiceImpl implements SeansService{
         seansRep.deleteById(id);
     }
 
+    @Override
+    public void updateSeans(int id, Seans seans) {
+        seansRep.deleteById(id);
+        seans.setIdS(id);
+        seansRep.save(seans);
+    }
+
 }

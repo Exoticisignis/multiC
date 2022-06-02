@@ -29,4 +29,11 @@ public class FilmServiceImplementation implements FilmService{
         filmRepository.deleteById(id);
     }
 
+    @Override
+    public void updateFilm(int id, Film film) {
+        filmRepository.deleteById(id);
+        film.setId(id);
+        filmRepository.save(film);
+    }
+
 }

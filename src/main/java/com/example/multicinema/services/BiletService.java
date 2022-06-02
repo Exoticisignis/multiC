@@ -8,4 +8,5 @@ public interface BiletService {
     public Bilet get(int id);
     public Bilet addBilet(Bilet bilet);
     public void deleteBilet(int id);
+    public void updateBilet(int id, Bilet bilet);
 }

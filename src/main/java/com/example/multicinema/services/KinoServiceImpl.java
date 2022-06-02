@@ -29,4 +29,11 @@ public class KinoServiceImpl implements KinoService{
         kinoRepository.deleteById(id);
     }
 
+    @Override
+    public void updateKino(int id, Kino kino) {
+        kinoRepository.deleteById(id);
+        kino.setIdK(id);
+        kinoRepository.save(kino);
+    }
+
 }

@@ -8,4 +8,5 @@ public interface SeansService {
     public Seans get(int id);
     public Seans addSeans(Seans seans);
     public void deleteSeans(int id);
+    public void updateSeans(int id, Seans seans);
 }

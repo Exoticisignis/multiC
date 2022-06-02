@@ -29,4 +29,11 @@ public class BiletServiceImpl implements BiletService{
         biletRep.deleteById(id);
     }
 
+    @Override
+    public void updateBilet(int id, Bilet bilet) {
+        biletRep.deleteById(id);
+        bilet.setIdB(id);
+        biletRep.save(bilet);
+    }
+
 }

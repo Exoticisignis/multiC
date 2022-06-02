@@ -7,4 +7,5 @@ public interface FilmService {
     public Film get(int id);
     public Film addFilm(Film film);
     public void deleteFilm(int id);
+    public void updateFilm(int id, Film film);
 }

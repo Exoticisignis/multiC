@@ -8,4 +8,5 @@ public interface KinoService {
     public Kino get(int id);
     public Kino addKino(Kino kino);
     public void deleteKino(int id);
+    public void updateKino(int id, Kino kino);
 }
