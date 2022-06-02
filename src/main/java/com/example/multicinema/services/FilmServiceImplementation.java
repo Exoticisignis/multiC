@@ -13,4 +13,20 @@ public class FilmServiceImplementation implements FilmService{
     public Iterable<Film> getAll(){
         return filmRepository.findAll();
     }
+
+    @Override
+    public Film get(int id) {
+        return filmRepository.findById(id).get();
+    }
+
+    @Override
+    public Film addFilm(Film film) {
+        return filmRepository.save(film);
+    }
+
+    @Override
+    public void deleteFilm(int id) {
+        filmRepository.deleteById(id);
+    }
+
 }
