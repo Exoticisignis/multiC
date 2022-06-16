@@ -1,5 +1,7 @@
 package com.example.multicinema.controllers;
 
+import com.example.multicinema.auth.CookieUtil;
+import com.example.multicinema.auth.JwtUtil;
 import com.example.multicinema.entities.Uzytkownik;
 import com.example.multicinema.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class UserController {
+    private static final String jwtTokenCookieName = "JWT-TOKEN";
+    private static final String signingKey = "signingKey";
     @Autowired
     UserService userService;
     @RequestMapping(value="/users", method = RequestMethod.GET)
@@ -33,5 +39,13 @@ public class UserController {
     public ResponseEntity<Object> updateUser(@PathVariable("id") int id, @RequestBody Uzytkownik user){
         userService.updateUser(id, user);
         return new ResponseEntity<>("User updated", HttpStatus.OK);
+    }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<Object> login(@RequestBody Uzytkownik user, HttpServletResponse httpServletResponse){
+        if (userService.login(user.getHaslo(), user.getLogin())){
+            String token = JwtUtil.generateToken(signingKey, user.getLogin());
+            CookieUtil.create(httpServletResponse, jwtTokenCookieName, token, false, -1, "localhost");
+            return new ResponseEntity<>("Welcome", HttpStatus.OK);}
+        return new ResponseEntity<>("Wrong login or password", HttpStatus.OK);
     }
 }
