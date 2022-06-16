@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+
+    <header>
+      <div class="header-content">
+
+          
+          
+          <a href="http://localhost:8081/" class="header_logo">Cinema</a>
+
+
+      </div>
+
+      <div class="header-button-content">
+
+          
+         <li> <a class="menua" href="">Kazdy dzień</a></li>
+         <li> <a class="menua" href="">Jutro</a></li>
+         <li> <a class="menua" href="">Dzisiaj</a></li>
+         <li> <a class="menua" href="">Popularne</a></li>
+
+      </div>
+
+   
+
+
+
+  </header>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <div class="cinema_app" id="app"></div>
+    <!-- built files will be auto injected -->
+    <div class="end-button-content">
+
+          
+        
+        <li> <a class="menua" href="">Filmy</a></li>
+        <li> <a class="menua" href="">Restauracja</a></li>
+        <li> <a class="menua" href="">Kontakt</a></li>
+
+     </div>
+     
+
+  </body>
+  
+</html>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+
+<script>
+
+function logowanie()
+    {
+        const movieEl = document.querySelector(".movie_pole");
+        movieEl.remove();
+        const logowanieEl = document.querySelector(".logowanie");
+        logowanieEl.innerHTML=`
+        
+        <p id="details"> Logowanie </p>
+        <form>
+            Login: <input type="text" id="name_l"/>
+            <br><br>
+            Password: <input type="text" id="password_l"/>
+            <br><br>
+            <input type="button" value="Zaloguj się" onclick="loguj()"/>
+        </form>
+        <br><br>
+        <br><br>
+        <br><br>
+        <p id="details"> Rejestracja </p>
+        <form>
+            Login: <input type="text" id="name_r"/>
+            <br><br>
+            Password: <input type="text" id="password_r"/>
+            <br><br>
+            E-mail: <input type="text" id="mail_r"/>
+            <br><br>
+            <input type="button" value="Zarejestruj się" onclick="rejestruj()"/>
+
+        </form>
+        
+        
+        `
+    }
+    var seans=0;
+    function change_seans(id){
+        seans=id; console.log(seans);
+    
+        //const m = document.getElementById('miejsce')
+        cratetable(10,5)
+    
+    }
+
+    var lista_do_zakupu=[]
+    function dodaj_do_listy(id){
+        lista_do_zakupu.push(id)
+        console.log(id)
+        console.log(lista_do_zakupu)
+        console.log(lista_do_zakupu.length)
+        const m = document.getElementById(id)
+        m.classList.add("miejsce_w")
+
+    }
+
+    function kupic_bilety(){
+        var date = new Date();
+        //const API_URL_ALL = "http://localhost:8080/bilety";
+        var d = lista_do_zakupu.length;
+        /*for(var i=0;i<lista_do_zakupu.length-1;i++){
+               
+                setInterval( function(){
+                    $.ajax(
+                {
+                
+                url: 'http://localhost:8080/bilety',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({"dataZ": String(date.getDate()).padStart(2,'0')+'/'+String(date.getMonth()+1).padStart(2,'0')+'/'+date.getFullYear(),"miejsce": parseInt(lista_do_zakupu[i]),"seans": seans,"uzytkownik": get_id_user(),"email": "user@mail.com","cena": 50.0})
+                
+                
+
+                });},(3000));
+
+
+                
+
+            }*//*
+            var i=0;
+            for(i = 0; i < lista_do_zakupu.length-1; i++){ 
+
+
+                setTimeout(function(){ 
+                    console.log(lista_do_zakupu)
+                    $.ajax(
+                            {
+                            
+                            url: 'http://localhost:8080/bilety',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({"dataZ": String(date.getDate()).padStart(2,'0')+'/'+String(date.getMonth()+1).padStart(2,'0')+'/'+date.getFullYear(),"miejsce": parseInt(lista_do_zakupu[i]),"seans": seans,"uzytkownik": get_id_user(),"email": "user@mail.com","cena": 50.0})
+                            
+                            
+
+                            });
+                
+                
+                }, 1000) 
+
+
+            }
+           */
+        lista_do_zakupu.forEach((el,i) => {
+                
+                           
+                                $.ajax(
+                            {
+                            
+                            url: 'http://localhost:8080/bilety',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({"dataZ": String(date.getDate()).padStart(2,'0')+'/'+String(date.getMonth()+1).padStart(2,'0')+'/'+date.getFullYear(),"miejsce": parseInt(el),"seans": seans,"uzytkownik": get_id_user(),"email": "user@mail.com","cena": 50.0})
+                            
+                            
+
+                            });
+
+
+
+                        });
+       
+
+       // document.location.href="http://localhost:8081"
+
+    }
+
+    function cratetable(k,r){
+        lista_do_zakupu.length=0
+                const a =document.querySelector('.bilets_table')
+                const b =document.querySelector('.kupic')
+                if (a!=null){a.remove()}
+                if (b!=null){b.remove()}
+             const API_URL_ALL = "http://localhost:8080/bilety";
+                        console.log(API_URL_ALL)
+                        getbilety(API_URL_ALL);
+                        async function getbilety(url){
+                        
+                        const resp = await fetch(url, { header:{"Content-Type":"application/json","Access-Control-Allow-Origin":"*"},});
+                        /*
+                        fetch(url)
+                        .then(function() {
+
+                        })
+                        .catch(function() {
+
+                        });
+                        */
+
+                        const respData = await resp.json();
+                        console.log(respData);
+                        var zajete=[]
+
+                        respData.forEach(el => {
+                            if(el.seans==seans){zajete.push(el.miejsce)}
+
+                        });
+
+
+
+                        console.log("tu z");
+                        console.log(zajete);
+
+
+
+                            const m = document.querySelector('.wybrane_miejsca')
+                            var table=document.createElement('table')
+                            table.classList.add("bilets_table")
+                            var l=0;
+                            for(var i=0;i<r;i++){
+                                var tr=document.createElement('tr')
+                                //console.log("add tr");
+                                for(var j=0;j<k;j++){
+                                    var td=document.createElement('td')
+                                    tr.appendChild(td);
+                                    l=l+1;
+                                    
+
+                                    //var button=document.createElement('button')
+
+                                     
+                                    if(zajete.includes(l.toString())){td.innerHTML=`
+                                    <button class="miejsce_z">${l}</button>
+                                    
+                                    `}
+                                    else{
+                                        td.innerHTML=`
+                                    <button class="miejsce_p" id="${l}" onclick="dodaj_do_listy(${l})">${l}</button>
+                                    
+                                    `
+                                    }
+
+
+                                    
+                                    //button.innerHTML=`${l}`
+                                    //td.appendChild(button);
+                                    //console.log("add td");
+                                }
+                                table.appendChild(tr);
+                            }
+                            m.appendChild(table);
+                            var div=document.createElement('div')
+                            div.innerHTML=`
+                                    <button class="kupic" onclick="kupic_bilety()">Kupić wybrane</button>
+                                    
+                                    `
+                            m.appendChild(div);
+                        //showbilets(respData);
+                        }
+                        
+                        
+                        
+
+            
+    }
+   
+
+    function rejestruj(){
+
+            
+            const login=document.getElementById('name_r').value
+            const mail = document.getElementById('mail_r').value
+            const password= document.getElementById('password_r').value
+            console.log(login+mail+password)
+            var check = false;
+            var stop= false;
+            $.ajax("http://localhost:8080/users",{
+                success: function(data){
+                    data.forEach(el =>{
+                        if(el.login==login && stop==false){ check=true; alert(login+"taki jest");stop=true;}
+                        else{}
+
+                    })
+                    console.log(check)
+            if(check==false){
+                console.log("Jest")
+            $.ajax(
+                {
+                
+                url: 'http://localhost:8080/users',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({login:login,email:mail,haslo:password}),
+                
+                
+
+            });
+            setTimeout(function(){go_to_buy(login,password)},500);
+            
+            
+        
+            }
+
+                }
+
+            })
+            //document.location.href = "http://google.com";
+            
+
+            
+
+
+            
+            
+
+
+}
+function go_to_buy(log,pass){
+
+    var stop2=false;
+            $.ajax("http://localhost:8080/users",{
+                success: function(data){
+                    data.forEach(el =>{
+                        if(el.login==log&& pass==el.haslo &&stop2==false){stop2=true; console.log("Jest2");document.location.href = window.location.href+"/"+el.idU;}
+
+                    })
+                    if(stop2==false){alert("Niepoprawny login lub haslo")}
+                    
+
+                }
+
+            })
+
+            
+}
+
+    function loguj(){
+
+            const login=document.getElementById('name_l').value
+           
+            const password= document.getElementById('password_l').value
+            console.log(login+password)
+            var check = false;
+            var stop= false;
+            $.ajax("http://localhost:8080/users",{
+                success: function(data){
+                    data.forEach(el =>{
+                        if(el.login==login && stop==false){ check=true; stop=true; console.log(check);}
+                        
+
+                    })
+                    console.log(check)
+            if(check==true){
+                console.log(login+password+"chek")
+                
+            setTimeout(function(){go_to_buy(login,password)},500);
+            }
+
+                }
+
+            })
+            
+            
+
+
+    }
+
+
+    function  get_all_seans(id){
+        
+        
+            
+           
+    }
+
+    /*function get_czas_seansu(id){
+        const films=[]
+        var czas=""
+        $.ajax("http://localhost:8080/seansy/id",{
+                success: function(data){
+                    data.forEach(el =>{console.log("check")
+                        if(el.film==id){czas=el.czasR+el.czasZ }
+                        
+
+                    })
+                   
+                    console.log(films)
+                }
+                
+
+            })
+            return czas
+            
+    }*/
+
+
+    function get_id_film(){
+        const API_URL_ALL = window.location.href.slice(28);
+        const API_URL_ALL1 = window.location.href.split("/")
+        console.log(API_URL_ALL1[4])
+
+
+        
+        return API_URL_ALL1[4];
+        
+    }
+    function get_id_user(){
+        
+        const API_URL_ALL = window.location.href.slice(28);
+        const API_URL_ALL1 = window.location.href.split("/")
+        console.log(API_URL_ALL1[5])
+        return API_URL_ALL1[5];
+    }
+
+
+
+
+
+
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+   /*function showNazwa(idf){
+        const nazwaEl = document.querySelector(".opis_filmu");
+        console.log("hjk")
+        console.log(idf)
+        $.ajax("http://localhost:8080/films/"+idf,{
+            success: function(data){
+            
+             nazwaEl.innerHTML = `
+                    
+                        <div class="nazwafilmu" >
+                         ${data.name}
+                        </div>
+                        
+                        `;
+
+            }
+        });
+        
+       
+
+    }*/
+
+
+</script>
+
+
+<style>
+table{
+
+    margin-top:20px;
+}
+.kupic{
+    margin-top:20px;
+    
+}
+.miejsce_p{
+    margin:2px;
+    height: 40px;
+    width: 40px;
+}
+.miejsce_w{
+    margin:2px;
+    height: 40px;
+    width: 40px;
+    background: rgb(53, 124, 53);
+}
+.miejsce_z{
+    margin:2px;
+    height: 40px;
+    width: 40px;
+    background: gray;
+}
+
+
+ul{
+    list-style: none;
+    margin:0;
+    padding-left: 0;
+    display: flex;
+}
+.menua{
+    text-decoration: none;
+    color: aliceblue;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+li{
+    display: inline;
+    float: left;
+    
+    
+}
+
+
+body{
+
+    background:   url(http://localhost:8081/imgBackFinal.png )  ;
+    background-color: azure;
+    
+    background-size: 150%;
+}
+
+h5 {
+  color: rgb(35, 70, 40);
+}
+.logowanie{
+    color: aliceblue;
+
+}
+.header-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 60px;
+    background-color: black;
+
+}
+.header-button-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 60px;
+    background-color: rgb(173, 128, 68);
+}
+
+
+
+.end-button-content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 60px;
+    background-color: rgb(0, 0, 0);
+    bottom:0;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+
+}
+
+.header_logo{
+
+    font-size: 32px;
+    text-decoration: none;
+    color: darkgoldenrod;
+    margin-left: auto;
+    margin-right: auto;
+}
+.movies{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.movie{
+    width: 240px;
+    margin: 10px;
+    position: relative;
+}
+
+.movie__cover-inner{
+    position: relative;
+    /*height: 360px;*/
+
+}
+.movie__cover-darkened{
+    background-color: black;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    height: 100%;    
+    z-index: 1;
+
+
+}
+.movie__cover-darkened:hover{
+    background-color: gray;
+    cursor: pointer;
+    
+}
+
+.movie__cover{
+max-width: 100%;
+width: 100%;
+}
+.movie__info{
+    padding: 10px 0px;
+    
+
+}
+.movie__title{
+
+    font-size: 20px;  
+    color: aliceblue;
+    
+
+}
+.movie__category{
+
+    font-size: 14px;
+    color: aliceblue;
+    
+
+}
+.movie__premiera{
+    left: 5px;
+    position: absolute;
+    bottom: 80px;
+    color: rgb(228, 192, 33);
+}
+</style>
