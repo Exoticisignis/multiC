@@ -5,6 +5,8 @@ import com.example.multicinema.repositories.AdmRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
+
 @Service
 public class AdmServiceImpl implements AdmService{
     @Autowired
@@ -34,6 +36,24 @@ public class AdmServiceImpl implements AdmService{
         admRep.deleteById(id);
         ad.setIdA(id);
         admRep.save(ad);
+    }
+    @Override
+    public boolean login(String haslo, String login){
+        String url = "jdbc:sqlite:cinemadb.db";
+        String sql = "SELECT * FROM Administratorze WHERE haslo=\""+haslo+"\" AND login=\""+login+"\"";
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+            if (rs.next()) {
+                System.out.println(rs.getInt("idA") + "\t" +
+                        rs.getString("email"));
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
 }

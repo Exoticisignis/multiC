@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class UserController {
     private static final String jwtTokenCookieName = "JWT-TOKEN";
-    private static final String signingKey = "signingKey";
+    private static final String signingKey = "userKey";
     @Autowired
     UserService userService;
     @RequestMapping(value="/users", method = RequestMethod.GET)

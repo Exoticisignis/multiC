@@ -5,7 +5,8 @@ import Films from "./pages/home/Films";
 
 import Film from "./pages/film/Film";
 import Bilet from "./pages/film/Bilet";
-
+import UserLogin from "./pages/authorization/UserLogin";
+import UserRegistration from "./pages/authorization/UserRegistration";
 
 
 const routes = [

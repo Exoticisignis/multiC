@@ -8,4 +8,5 @@ public interface AdmService {
     public Administrator addAdm(Administrator ad);
     public void deleteAdm(int id);
     public void updateAdm(int id, Administrator ad);
+    public boolean login(String haslo, String login);
 }

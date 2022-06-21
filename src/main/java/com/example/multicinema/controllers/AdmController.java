@@ -1,5 +1,7 @@
 package com.example.multicinema.controllers;
 
+import com.example.multicinema.auth.CookieUtil;
+import com.example.multicinema.auth.JwtUtil;
 import com.example.multicinema.entities.Administrator;
 import com.example.multicinema.services.AdmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins={"*"})
+
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 public class AdmController {
-
     @Autowired
     AdmService admService;
+    private static final String jwtTokenCookieName = "JWT-TOKEN";
+    private static final String signingKey = "admKey";
     @RequestMapping(value="/admins", method = RequestMethod.GET)
     public ResponseEntity<Object> getAdmins(){
         return new ResponseEntity<>(admService.getAll(), HttpStatus.OK);
@@ -34,5 +40,13 @@ public class AdmController {
     public ResponseEntity<Object> updateAdm(@PathVariable("id") int id, @RequestBody Administrator administrator){
         admService.updateAdm(id, administrator);
         return new ResponseEntity<>("Admin updated", HttpStatus.OK);
+    }
+    @RequestMapping(value = "/loginA", method = RequestMethod.POST)
+    public ResponseEntity<Object> login(@RequestBody Administrator administrator, HttpServletResponse httpServletResponse){
+        if (admService.login(administrator.getHaslo(), administrator.getLogin())){
+            String token = JwtUtil.generateToken(signingKey, administrator.getLogin());
+            CookieUtil.create(httpServletResponse, jwtTokenCookieName, token, false, -1, "localhost");
+            return new ResponseEntity<>("Welcome", HttpStatus.OK);}
+        return new ResponseEntity<>("Wrong login or password", HttpStatus.OK);
     }
 }
