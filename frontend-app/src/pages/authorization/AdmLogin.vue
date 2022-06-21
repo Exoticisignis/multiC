@@ -1,6 +1,8 @@
 <template>
     <section class="vh-100 bg-image"
-  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  style="background-image: url('https://bi.im-g.pl/im/6b/d5/18/z26042219IH,Kina-Cinema-City-otwieraja-sie-w-Polsce-3-lipca.jpg');">
+    <!--<section class="vh-100 bg-image"
+  style="background-image: url('https://bi.im-g.pl/im/6b/d5/18/z26042219IH,Kina-Cinema-City-otwieraja-sie-w-Polsce-3-lipca.jpg');">-->
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
