@@ -20,7 +20,7 @@
                   <input type="password" id="haslo" name="haslo" class="form-control form-control-lg" />
                   <label class="form-label" for="haslo">Your password</label>
                 </div>
-
+                <a th:href="http://localhost:8080/oauth2/authorization/github">Login with GitHub</a>
                 <div class="d-flex justify-content-center">
                   <button type="button"
                     class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
